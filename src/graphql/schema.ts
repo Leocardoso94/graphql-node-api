@@ -1,17 +1,17 @@
 import { makeExecutableSchema } from 'graphql-tools';
 
 const users: any[] = [
-    {
-        id: 1,
-        name: 'Jon',
-        email: "email"
-    },
-    {
-        id: 1,
-        name: 'Jon',
-        email: "email"
-    }
-]
+  {
+    id: 1,
+    name: 'Jon',
+    email: 'email',
+  },
+  {
+    id: 1,
+    name: 'Jon',
+    email: 'email',
+  },
+];
 
 const typeDefs = `
     type User {
@@ -23,12 +23,12 @@ const typeDefs = `
     type Query {
         allUsers: [User!]!
     }
-`
+`;
 
 const resolvers = {
-    Query: {
-        allUsers: () => []
-    }
-}
+  Query: {
+    allUsers: () => [],
+  },
+};
 
 export default makeExecutableSchema({ typeDefs, resolvers });
