@@ -27,7 +27,7 @@ const typeDefs = `
 
 const resolvers = {
   Query: {
-    allUsers: () => [],
+    allUsers: () => users,
   },
 };
 
