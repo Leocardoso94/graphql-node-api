@@ -19,24 +19,24 @@ export interface PostModel extends BaseModelInterface,
   Sequelize.Model<PostIntance, PostAttributes> { }
 
 
-export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes): PostModel => {
-  const Post: PostModel = sequelize.define('Post', {
+export default (sequelize: Sequelize.Sequelize, dataTypes: Sequelize.DataTypes): PostModel => {
+  const post: PostModel = sequelize.define('Post', {
     id: {
-      type: DataTypes.INTEGER,
+      type: dataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
     title: {
-      type: DataTypes.STRING,
+      type: dataTypes.STRING,
       allowNull: false,
     },
     content: {
-      type: DataTypes.TEXT,
+      type: dataTypes.TEXT,
       allowNull: false,
     },
     photo: {
-      type: DataTypes.BLOB({
+      type: dataTypes.BLOB({
         length: 'long',
       }),
       allowNull: false,
@@ -47,8 +47,8 @@ export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes):
       tableName: 'posts',
     });
 
-  Post.associate = (models: ModelsInterface): void => {
-    Post.belongsTo(models.User, {
+  post.associate = (models: ModelsInterface): void => {
+    post.belongsTo(models.User, {
       foreignKey: {
         allowNull: false,
         field: 'author',
@@ -57,5 +57,5 @@ export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes):
     });
   };
 
-  return Post;
+  return post;
 };
