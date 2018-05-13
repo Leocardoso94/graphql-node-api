@@ -1,6 +1,6 @@
-import * as Sequelize from "sequelize";
-import { BaseModelInterface } from "../Interfaces/BaseModelInterface";
-import { ModelsInterface } from "../Interfaces/ModelsInterface";
+import * as Sequelize from 'sequelize';
+import { BaseModelInterface } from '../Interfaces/BaseModelInterface';
+import { ModelsInterface } from '../Interfaces/ModelsInterface';
 
 export interface CommentAttributes {
   id?: number;
@@ -29,16 +29,16 @@ export default (
         type: dataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true
+        autoIncrement: true,
       },
       comment: {
         type: dataTypes.TEXT,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {
-      tableName: 'comments'
-    }
+      tableName: 'comments',
+    },
   );
 
   comment.associate = (models: ModelsInterface): void => {
