@@ -21,32 +21,32 @@ export interface UserModel extends BaseModelInterface,
   Sequelize.Model<UserInstance, UserAttributes> { }
 
 
-export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes): UserModel => {
+export default (sequelize: Sequelize.Sequelize, dataTypes: Sequelize.DataTypes): UserModel => {
   const user: UserModel = sequelize.define('User', {
     id: {
-      type: DataTypes.INTEGER,
+      type: dataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING(128),
+      type: dataTypes.STRING(128),
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(128),
+      type: dataTypes.STRING(128),
       allowNull: false,
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(128),
+      type: dataTypes.STRING(128),
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
     photo: {
-      type: DataTypes.BLOB({
+      type: dataTypes.BLOB({
         length: 'long',
       }),
       allowNull: true,
@@ -64,10 +64,10 @@ export default (sequelize: Sequelize.Sequelize, DataTypes: Sequelize.DataTypes):
       },
     });
 
-  user.associate = (models: ModelsInterface): void => {};
+  user.associate = (models: ModelsInterface): void => { };
 
   user.prototype.isPassword =
-  (encodedPassword: string, password: string): boolean =>  compareSync(password, encodedPassword);
+    (encodedPassword: string, password: string): boolean => compareSync(password, encodedPassword);
 
 
   return user;

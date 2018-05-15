@@ -14,7 +14,7 @@ gulp.task('scripts', ['static'], () => {
         .pipe(gulp.dest(distFolder))
 });
 
-gulp.task('static', ['clean'], () => gulp.src(['src/**/.json'])
+gulp.task('static', ['clean'], () => gulp.src(['src/**/*.json'])
     .pipe(gulp.dest(distFolder)));
 
 gulp.task('clean', () => gulp.src(distFolder).pipe(clean()));
