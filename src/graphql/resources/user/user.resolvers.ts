@@ -8,12 +8,12 @@ const checkUser = (user, id) => {
 };
 
 export const userResolvers = {
-  Users: {
+  User: {
     posts: (
-      user: UserInstance, 
+      user: UserInstance,
       { first = 10, offset = 0 },
       { db }: { db: DbConnectionInterface },
-      info: GraphQLResolveInfo, 
+      info: GraphQLResolveInfo,
     ) =>
       db.Post.findAll({
         offset,
@@ -39,7 +39,7 @@ export const userResolvers = {
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
     ) => {
-      return db.User.findById(id).then((user: UserInstance) => {
+      return db.User.findById(Number(id)).then((user: UserInstance) => {
         checkUser(user, id);
         return user;
       });

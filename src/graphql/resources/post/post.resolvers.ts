@@ -40,7 +40,7 @@ export const postResolvers = {
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
     ) => {
-      const post: PostIntance = await db.Post.findById(id);
+      const post: PostIntance = await db.Post.findById(Number(id));
       checkPost(post, id);
       return post;
     },
@@ -52,9 +52,9 @@ export const postResolvers = {
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
     ) => {
-      const transaction: Transaction = await db.sequelize.transaction();
-
-      return db.Post.create(input, { transaction });
+      return db.sequelize.transaction((transaction: Transaction) =>
+        db.Post.create(input, { transaction }),
+      );
     },
     updatePost: async (
       parent,
@@ -62,11 +62,13 @@ export const postResolvers = {
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
     ) => {
-      const transaction: Transaction = await db.sequelize.transaction();
-      const post: PostIntance = await db.Post.findById(Number(id));
-      checkPost(post, id);
+      return db.sequelize.transaction((transaction: Transaction) => {
+        const post: PostIntance = await db.Post.findById(Number(id));
+        checkPost(post, id);
 
-      return post.update(input, { transaction });
+        return post.update(input, { transaction });
+
+      };
     },
     deletePost: async (
       parent,
@@ -74,13 +76,14 @@ export const postResolvers = {
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
     ) => {
-      const transaction: Transaction = await db.sequelize.transaction();
-      const post: PostIntance = await db.Post.findById(Number(id));
-      checkPost(post, id);
+      return db.sequelize.transaction((transaction: Transaction) => {
+        const post: PostIntance = await db.Post.findById(Number(id));
+        checkPost(post, id);
 
-      const res =  post.destroy({ transaction });
+        const res = post.destroy({ transaction });
 
-      return !!res;
+        return !!res;
+      };
     },
   },
 };
