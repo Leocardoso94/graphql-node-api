@@ -40,9 +40,8 @@ export const commentResolvers = {
       { input },
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
-    ) => db.sequelize.transaction((transaction: Transaction) => {
-      return db.Comment.create(input, { transaction });
-    }),
+    ) => db.sequelize.transaction((transaction: Transaction) => db.Comment
+      .create(input, { transaction })),
     updateComment: async (
       parent,
       { id, input },

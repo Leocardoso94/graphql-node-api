@@ -46,44 +46,40 @@ export const postResolvers = {
     },
   },
   Mutation: {
-    createPost: async (
+    createPost: (
       parent,
       { input },
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
-    ) => {
-      return db.sequelize.transaction((transaction: Transaction) =>
-        db.Post.create(input, { transaction }),
-      );
-    },
-    updatePost: async (
+    ) => db.sequelize.
+      transaction((transaction: Transaction) => db.Post.create(input, { transaction })),
+    updatePost: (
       parent,
       { id, input },
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
     ) => {
-      return db.sequelize.transaction((transaction: Transaction) => {
+      return db.sequelize.transaction(async (transaction: Transaction) => {
         const post: PostIntance = await db.Post.findById(Number(id));
         checkPost(post, id);
 
         return post.update(input, { transaction });
 
-      };
+      });
     },
-    deletePost: async (
+    deletePost: (
       parent,
       { id },
       { db }: { db: DbConnectionInterface },
       info: GraphQLResolveInfo,
-    ) => {
-      return db.sequelize.transaction((transaction: Transaction) => {
+    ) => db.sequelize
+      .transaction(async (transaction: Transaction) => {
         const post: PostIntance = await db.Post.findById(Number(id));
         checkPost(post, id);
 
         const res = post.destroy({ transaction });
 
         return !!res;
-      };
-    },
+      }),
   },
 };
