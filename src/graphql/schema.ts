@@ -8,8 +8,15 @@ import { commentTypes } from './resources/comment/comment.schema';
 import { commentResolvers } from './resources/comment/comment.resolvers';
 import { userResolvers } from './resources/user/user.resolvers';
 import { postResolvers } from './resources/post/post.resolvers';
+import { tokenTypes } from './resources/token/token.schema';
+import { tokenResolvers } from './resources/token/token.resolver';
 
-const resolvers = merge(userResolvers,postResolvers,commentResolvers);
+const resolvers = merge(
+  userResolvers,
+  postResolvers,
+  tokenResolvers,
+  commentResolvers,
+);
 
 const schemaDefinition = `
   type Schema {
@@ -26,6 +33,7 @@ export default makeExecutableSchema({
     mutation,
     commentTypes,
     postTypes,
+    tokenTypes,
     userTypes,
   ],
 });
